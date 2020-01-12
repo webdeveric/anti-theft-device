@@ -17,7 +17,7 @@
     "webpack-sources": "^1.4.3"
   },
   "peerDependencies": {
-    "webpack": ">=4.4.0"
+    "webpack": ">=4.40.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",

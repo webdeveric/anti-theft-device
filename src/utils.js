@@ -1,6 +1,9 @@
 function iife( func, ...args )
 {
-  const script = func.toString().replace(/^function anonymous\(/, 'function(');
+  const script = func.toString()
+    .replace(/^function anonymous\(/, 'function(')
+    .replace(/^function \(([^)]+)?\) {/, 'function($1){')
+    .replace(/^callback\(/, 'function(');
 
   const argStr = args.join(',');
 

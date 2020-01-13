@@ -2,11 +2,12 @@
   "name": "@webdeveric/anti-theft-device",
   "version": "0.1.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "src/anti-theft-device.js",
   "author": "Eric King <eric@webdeveric.com> (http://webdeveric.com)",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint --fix ./src",
+    "test": "jest",
+    "lint": "eslint --fix ./*.js ./src",
     "prepublishOnly": "npm run lint"
   },
   "engines": {
@@ -22,6 +23,7 @@
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-webdeveric": "^0.4.0",
+    "jest": "^24.9.0",
     "webpack": "^4.41.5"
   }
 }

@@ -1,8 +1,9 @@
 'use strict';
 
-// const validateOptions = require('schema-utils');
+const validateOptions = require('schema-utils');
 const { ConcatSource } = require('webpack-sources');
 const { iife } = require('./utils');
+const optionsSchema = require('./options-schema.json');
 
 class AntiTheftDevice
 {
@@ -11,20 +12,18 @@ class AntiTheftDevice
     this.options = {
       enabled: true,
       entryOnly: true,
-      hostnames: [],
+      home: 'localhost',
+      hostnames: [ '^localhost$' ],
       callback( url ) {
         window.location.replace( url );
       },
       ...options,
     };
 
-    if ( ! this.options.home ) {
-      throw new Error('home is required');
-    }
-
-    if ( ! this.options.hostnames.length ) {
-      throw new Error('at least one valid hostname is required');
-    }
+    validateOptions(optionsSchema, this.options, {
+      name: this.constructor.name,
+      baseDataPath: 'options',
+    });
   }
 
   getHomeString()

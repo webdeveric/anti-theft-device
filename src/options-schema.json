@@ -1,0 +1,35 @@
+{
+  "title": "Anti Theft Device options schema",
+  "description": "Anti Theft Device options",
+  "type": "object",
+  "properties": {
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "entryOnly": {
+      "type": "boolean",
+      "default": true
+    },
+    "home": {
+      "type": "string"
+    },
+    "hostnames": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "callback": {
+      "instanceof": "Function"
+    }
+  },
+  "required": [
+    "home",
+    "hostnames",
+    "callback"
+  ],
+  "definitions": {}
+}

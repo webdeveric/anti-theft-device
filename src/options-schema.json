@@ -35,8 +35,7 @@
   },
   "required": [
     "home",
-    "hostnames",
-    "callback"
+    "hostnames"
   ],
   "definitions": {}
 }

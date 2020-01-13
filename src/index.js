@@ -2,7 +2,7 @@
 
 const validateOptions = require('schema-utils');
 const { ConcatSource } = require('webpack-sources');
-const { iife } = require('./utils');
+const { iife, convertToRegexString } = require('./utils');
 const optionsSchema = require('./options-schema.json');
 
 class AntiTheftDevice
@@ -41,9 +41,7 @@ class AntiTheftDevice
   {
     const { hostnames, callback } = this.options;
 
-    const escapeDots = word => word.replace(/\./g, '\\.');
-
-    const pattern = `/${hostnames.map( escapeDots ).join('|')}/i`;
+    const pattern = `/${hostnames.map( convertToRegexString ).join('|')}/i`;
 
     const func = new Function(`
       if ( ! ${pattern}.test(window.location.hostname) ) {
@@ -71,7 +69,7 @@ class AntiTheftDevice
         return;
       }
 
-      compilation.hooks.afterOptimizeChunkAssets.tap( this.constructor.name, chunks => {
+      compilation.hooks.optimizeChunkAssets.tap( this.constructor.name, chunks => {
         for ( const chunk of chunks ) {
           if ( entryOnly && ! chunk.canBeInitial() ) {
             continue;

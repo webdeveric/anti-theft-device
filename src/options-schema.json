@@ -19,7 +19,14 @@
       "minItems": 1,
       "uniqueItems": true,
       "items": {
-        "type": "string"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "instanceof": "RegExp"
+          }
+        ]
       }
     },
     "callback": {

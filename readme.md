@@ -1,5 +1,7 @@
 # Anti Theft Device
 
+[![Build Status](https://travis-ci.org/webdeveric/anti-theft-device.svg?branch=master)](https://travis-ci.org/webdeveric/anti-theft-device)
+
 This Webpack plugin will add a snippet of code to your chunks that will check to see if
 the code is running on one of your hostnames.
 Its useful for when someone copies your files to make a clone of your site.

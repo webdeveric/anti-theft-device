@@ -7,6 +7,12 @@ the code is running on one of your hostnames.
 Its useful for when someone copies your files to make a clone of your site.
 By default, it will `window.location.replace()` back to your `home` URL.
 
+## Installation
+
+```bash
+npm install @webdeveric/anti-theft-device --save-dev
+```
+
 ## Webpack Compatibility
 
 This plugin works with `webpack` >= `4.40.0`.

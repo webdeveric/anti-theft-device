@@ -3,9 +3,20 @@ const { iife, convertToRegexString } = require('../src/utils');
 describe('utils', () => {
   describe('iife', () => {
     it('Returns a string representation of an iife', () => {
-      expect( iife( function() {} ) ).toBe('(function(){})()');
-      expect( iife( function temp() {} ) ).toBe('(function(){})()');
-      expect( iife( new Function('') ).replace(/\s/g,'') ).toBe('(function(){})()');
+      const obj = {
+        fn1(){},
+        fn2: function () {},
+        fn3: new Function(''),
+      };
+
+      const startOfIIFE = expect.stringMatching(/^\(function\(/);
+
+      expect( iife( obj.fn1 ) ).toEqual( startOfIIFE );
+      expect( iife( obj.fn2 ) ).toEqual( startOfIIFE );
+      expect( iife( obj.fn3 ) ).toEqual( startOfIIFE );
+      expect( iife( function() {} ) ).toEqual( startOfIIFE );
+      expect( iife( function temp() {} ) ).toEqual( startOfIIFE );
+      expect( iife( new Function('') ) ).toEqual( startOfIIFE );
     });
 
     it('Returns a string representation of an iife with arguments', () => {

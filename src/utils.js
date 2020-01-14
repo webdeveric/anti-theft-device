@@ -2,7 +2,12 @@ function iife( func, ...args )
 {
   const script = func.toString().replace(
     /^(?:function\s)*(?<name>[a-z0-9_]+)?\s?\((?<args>[^)]+)?\)\s?{/i,
-    'function($<args>){'
+    function( ...replaceArgs ) {
+      // Named capture groups are the last argument.
+      const { args = '' } = replaceArgs.pop();
+
+      return `function(${args.trim()}){`;
+    }
   );
 
   const argStr = args.join(',');

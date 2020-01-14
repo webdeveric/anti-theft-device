@@ -7,6 +7,10 @@ the code is running on one of your hostnames.
 Its useful for when someone copies your files to make a clone of your site.
 By default, it will `window.location.replace()` back to your `home` URL.
 
+## Webpack Compatibility
+
+This plugin works with `webpack` >= `4.40.0`.
+
 ## Example Usage
 
 ```js
@@ -28,9 +32,9 @@ new AntiTheftDevice({
     '.?webdeveric.com$',
   ],
   // The default callback will use location.replace( url ) so the user is taken back to your site.
-  // callback should be a simple ES5 compatilbe function.
+  // callback should be a simple ES5 compatible function.
   // Babel is not involved here.
-  // This will recieve the home URL with updated pathname.
+  // This will receive the home URL with updated pathname.
   callback: function( url ) {
     // console.log() gets removed during optimization. If you want to use it, use window['console'].log() instead.
     window['console'].log( url );

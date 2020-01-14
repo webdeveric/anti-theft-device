@@ -1,11 +1,10 @@
+const path = require('path');
 const AntiTheftDevice = require('../src/anti-theft-device');
 
 describe('AntiTheftDevice', () => {
   const defaultOptions = {
     home: 'https://webdeveric.com',
-    hostnames: [
-      'webdeveric.com',
-    ],
+    hostnames: [ 'webdeveric.com' ],
   };
 
   describe('options', () => {
@@ -19,7 +18,7 @@ describe('AntiTheftDevice', () => {
           'webdeveric.com',
         ],
         callback: function( /* url */ ) {
-        }
+        },
       };
 
       expect( () => new AntiTheftDevice( options ) ).not.toThrow();
@@ -42,7 +41,7 @@ describe('AntiTheftDevice', () => {
     it('Returns the home string', () => {
       const atd = new AntiTheftDevice( defaultOptions );
 
-      expect( atd.getHomeString() ).toBe("'https://webdeveric.com'");
+      expect( atd.getHomeString() ).toBe('\'https://webdeveric.com\'');
     });
 
     it('Returns code that replaces /* with location.pathname', () => {
@@ -51,7 +50,7 @@ describe('AntiTheftDevice', () => {
         home: 'webdeveric.com/*',
       } );
 
-      expect( atd.getHomeString() ).toBe("'webdeveric.com/*'.replace( /\\/\\*$/, window.location.pathname )");
+      expect( atd.getHomeString() ).toBe('\'webdeveric.com/*\'.replace( /\\/\\*$/, window.location.pathname )');
     });
   });
 
@@ -64,6 +63,75 @@ describe('AntiTheftDevice', () => {
   });
 
   describe('apply()', () => {
-    it.todo('Works with Webpack');
+    it('Does nothing if not enabled', done => {
+      const config = require('./fixtures/webpack.config.js');
+
+      const atd = new AntiTheftDevice( {
+        ...defaultOptions,
+        enabled: false,
+      });
+
+      const compiler = makeCompiler( config, atd );
+
+      compiler.run( err => {
+        expect( err ).toBeNull();
+
+        const content = compiler.outputFileSystem.readFileSync( path.join( compiler.options.output.path, 'client.js') ).toString('utf8');
+
+        expect( content.startsWith( atd.makeScript() ) ).toBeFalsy();
+
+        done();
+      });
+    });
+
+    it('Prefixes code in the chunk', done => {
+      const config = require('./fixtures/webpack.config.js');
+
+      const atd = new AntiTheftDevice( defaultOptions );
+
+      const compiler = makeCompiler( config, atd );
+
+      compiler.run( err => {
+        expect( err ).toBeNull();
+
+        const content = compiler.outputFileSystem.readFileSync( path.join( compiler.options.output.path, 'client.js') ).toString('utf8');
+
+        expect( content.startsWith( atd.makeScript() ) ).toBeTruthy();
+
+        done();
+      });
+    });
+
+    it('Prefixes code in all chunks', done => {
+      const config = require('./fixtures/webpack.config.js');
+
+      const atd = new AntiTheftDevice({
+        ...defaultOptions,
+        entryOnly: false,
+      });
+
+      const script = atd.makeScript();
+
+      const checker = {
+        apply(compiler)
+        {
+          compiler.hooks.emit.tapAsync('checker', (compilation, callback) => {
+            Object.entries( compilation.assets ).forEach( ([ filename, src ]) => {
+              expect( src.source().startsWith( script ) ).toBeTruthy();
+            });
+
+            callback();
+          });
+        },
+      };
+
+      const compiler = makeCompiler( config, atd, checker );
+
+      compiler.run( err => {
+        expect( err ).toBeNull();
+
+        done();
+      });
+    });
   });
 });

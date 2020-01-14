@@ -5,7 +5,7 @@ describe('utils', () => {
     it('Returns a string representation of an iife', () => {
       const obj = {
         fn1(){},
-        fn2: function () {},
+        fn2: function() {},
         fn3: new Function(''),
       };
 
@@ -20,8 +20,10 @@ describe('utils', () => {
     });
 
     it('Returns a string representation of an iife with arguments', () => {
+      /* eslint-disable no-unused-vars */
       expect( iife( function( url ) {}, JSON.stringify('webdeveric.com') ) ).toBe('(function(url){})("webdeveric.com")');
       expect( iife( function( url, redirect ) {}, JSON.stringify('webdeveric.com'), true ) ).toBe('(function(url, redirect){})("webdeveric.com",true)');
+      /* eslint-enable no-unused-vars */
     });
   });
 
@@ -39,7 +41,6 @@ describe('utils', () => {
     it('meta-characters can be used', () => {
       expect( convertToRegexString('^localhost$') ).toBe('^localhost$');
       expect( convertToRegexString('.webdeveric.com$') ).toBe('\\.webdeveric\\.com$');
-      expect( convertToRegexString('\.webdeveric\.com$') ).toBe('\\.webdeveric\\.com$');
     });
   });
 });

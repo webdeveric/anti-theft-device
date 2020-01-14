@@ -7,5 +7,7 @@ module.exports = {
 
   testEnvironment: 'node',
 
-  testMatch: [ '<rootDir>/tests/**/*.js' ],
+  setupFiles: [ '<rootDir>/tests/helpers.js' ],
+
+  testMatch: [ '<rootDir>/tests/**/*.spec.js' ],
 };

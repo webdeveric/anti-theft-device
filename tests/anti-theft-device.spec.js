@@ -116,7 +116,7 @@ describe('AntiTheftDevice', () => {
         apply(compiler)
         {
           compiler.hooks.emit.tapAsync('checker', (compilation, callback) => {
-            Object.entries( compilation.assets ).forEach( ([ filename, src ]) => {
+            Object.entries( compilation.assets ).forEach( ([ , src ]) => {
               expect( src.source().startsWith( script ) ).toBeTruthy();
             });
 

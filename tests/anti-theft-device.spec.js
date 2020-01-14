@@ -2,7 +2,7 @@ const AntiTheftDevice = require('../src/anti-theft-device');
 
 describe('AntiTheftDevice', () => {
   const defaultOptions = {
-    home: 'webdeveric.com',
+    home: 'https://webdeveric.com',
     hostnames: [
       'webdeveric.com',
     ],
@@ -13,7 +13,7 @@ describe('AntiTheftDevice', () => {
       const options = {
         enabled: true,
         entryOnly: false,
-        home: 'webdeveric.com',
+        home: 'https://webdeveric.com',
         hostnames: [
           'localhost',
           'webdeveric.com',
@@ -42,7 +42,7 @@ describe('AntiTheftDevice', () => {
     it('Returns the home string', () => {
       const atd = new AntiTheftDevice( defaultOptions );
 
-      expect( atd.getHomeString() ).toBe("'webdeveric.com'");
+      expect( atd.getHomeString() ).toBe("'https://webdeveric.com'");
     });
 
     it('Returns code that replaces /* with location.pathname', () => {

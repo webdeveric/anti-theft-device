@@ -4,6 +4,8 @@ describe('utils', () => {
   describe('iife', () => {
     it('Returns a string representation of an iife', () => {
       expect( iife( function() {} ) ).toBe('(function(){})()');
+      expect( iife( function temp() {} ) ).toBe('(function(){})()');
+      expect( iife( new Function('') ).replace(/\s/g,'') ).toBe('(function(){})()');
     });
 
     it('Returns a string representation of an iife with arguments', () => {

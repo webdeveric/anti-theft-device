@@ -1,14 +1,33 @@
 {
   "name": "@webdeveric/anti-theft-device",
+  "description": "This Webpack plugin will add a snippet of code to your chunks that will check to see if the code is running on one of your hostnames.",
   "version": "0.1.0",
-  "description": "",
-  "main": "src/anti-theft-device.js",
-  "author": "Eric King <eric@webdeveric.com> (http://webdeveric.com)",
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webdeveric/anti-theft-device.git"
+  },
+  "bugs": {
+    "url": "https://github.com/webdeveric/anti-theft-device/issues"
+  },
+  "homepage": "https://github.com/webdeveric/anti-theft-device/#readme",
+  "keywords": [
+    "anti-theft-device",
+    "webpack",
+    "plugin"
+  ],
+  "main": "src/anti-theft-device.js",
+  "files": [
+    "src"
+  ],
+  "author": "Eric King <eric@webdeveric.com> (http://webdeveric.com)",
   "scripts": {
     "test": "jest",
     "lint": "eslint --fix ./*.js ./src ./tests",
-    "prepublishOnly": "npm run lint"
+    "prepublishOnly": "npm run lint && npm test"
   },
   "engines": {
     "node": ">=8"

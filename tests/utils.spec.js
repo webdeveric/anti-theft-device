@@ -40,7 +40,7 @@ describe('utils', () => {
 
     it('meta-characters can be used', () => {
       expect( convertToRegexString('^localhost$') ).toBe('^localhost$');
-      expect( convertToRegexString('.webdeveric.com$') ).toBe('\\.webdeveric\\.com$');
+      expect( convertToRegexString('.webdeveric\\.com$') ).toBe('.webdeveric\\.com$');
     });
   });
 });

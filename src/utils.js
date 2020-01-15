@@ -17,15 +17,15 @@ function iife( func, ...args )
 
 function convertToRegexString( word )
 {
-  let { source } = new RegExp( word );
-
-  // If the word does not have the ^ or $ meta-character, assume the user wants the word to match exactly.
-  if ( ! /^\^|\$$/.test( source ) ) {
-    source = `^${source}$`;
+  // Check for plain hostnames and escape the dots so they aren't treated as meta-characters.
+  if ( typeof word === 'string' && /^[a-z0-9.-]+$/.test( word ) ) {
+    word = word.replace('.', '\\.');
   }
 
-  // If word is a string, lets treat the dots as literal dots and not the RegExp meaning of that meta-character.
-  return typeof word === 'string' ? source.replace(/\./g, '\\.') : source;
+  const { source } = new RegExp( word );
+
+  // If the word does not have the ^ or $ meta-character, assume the user wants the word to match exactly.
+  return ! /^\^|\$$/.test( source ) ? `^${source}$` : source;
 }
 
 module.exports = {

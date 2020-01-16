@@ -1,7 +1,7 @@
 {
   "name": "@webdeveric/anti-theft-device",
   "description": "This Webpack plugin will add a snippet of code to your chunks that will check to see if the code is running on one of your hostnames.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publishConfig": {
     "access": "public"
   },

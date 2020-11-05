@@ -1,6 +1,4 @@
-'use strict';
-
-const validateOptions = require('schema-utils');
+const { validate } = require('schema-utils');
 const { ConcatSource } = require('webpack-sources');
 const { iife, convertToRegexString } = require('./utils');
 const optionsSchema = require('./options-schema.json');
@@ -20,10 +18,14 @@ class AntiTheftDevice
       ...options,
     };
 
-    validateOptions(optionsSchema, this.options, {
-      name: this.constructor.name,
-      baseDataPath: 'options',
-    });
+    validate(
+      optionsSchema,
+      this.options,
+      {
+        name: this.constructor.name,
+        baseDataPath: 'options',
+      }
+    );
   }
 
   getHomeString()

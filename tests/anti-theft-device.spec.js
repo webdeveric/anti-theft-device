@@ -37,7 +37,7 @@ describe('AntiTheftDevice', () => {
     });
   });
 
-  describe('getHomeString()',() => {
+  describe('getHomeString()', () => {
     it('Returns the home string', () => {
       const atd = new AntiTheftDevice( defaultOptions );
 

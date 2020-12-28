@@ -24,7 +24,7 @@ class AntiTheftDevice
       {
         name: this.constructor.name,
         baseDataPath: 'options',
-      }
+      },
     );
   }
 

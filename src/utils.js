@@ -7,7 +7,7 @@ function iife( func, ...args )
       const { args = '' } = replaceArgs.pop();
 
       return `function(${args.trim()}){`;
-    }
+    },
   );
 
   const argStr = args.join(',');
